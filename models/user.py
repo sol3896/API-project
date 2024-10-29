@@ -1,11 +1,10 @@
 from .person import Person
-from .book import Book
 
 class User(Person):
+    """
+    Class representing a library member who can borrow books.
+    """
     def __init__(self, user_id, name):
-        """
-        Initialize a User instance with user ID and name.
-        """
         super().__init__(user_id, name)
         self.borrowed_books = []
 

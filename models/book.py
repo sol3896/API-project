@@ -1,8 +1,8 @@
 class Book:
+    """
+    Class representing a book in the library system.
+    """
     def __init__(self, title, author, isbn, available_copies):
-        """
-        Initialize a Book instance with title, author, ISBN, and available copies.
-        """
         self.title = title
         self.author = author
         self.isbn = isbn

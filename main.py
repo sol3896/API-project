@@ -3,7 +3,6 @@ from models.book import Book
 from models.user import User
 from models.staff import Staff
 
-
 def main():
     # Initialize the library
     library = Library()
@@ -24,9 +23,12 @@ def main():
             title = input("Enter book title: ")
             author = input("Enter book author: ")
             isbn = input("Enter book ISBN: ")
-            available_copies = int(input("Enter available copies: "))
-            book = Book(title, author, isbn, available_copies)
-            library.add_book(book)
+            try:
+                available_copies = int(input("Enter available copies: "))
+                book = Book(title, author, isbn, available_copies)
+                library.add_book(book)
+            except ValueError:
+                print("Invalid input for available copies. Please enter a number.")
 
         elif choice == "2":
             user_id = input("Enter user ID: ")

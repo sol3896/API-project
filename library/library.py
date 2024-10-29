@@ -3,10 +3,10 @@ from models.user import User
 from models.staff import Staff
 
 class Library:
+    """
+    Class managing the library's book collection and users.
+    """
     def __init__(self):
-        """
-        Initialize the Library with empty lists for books and users.
-        """
         self.books = []
         self.users = []
 
