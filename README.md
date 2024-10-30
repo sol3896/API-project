@@ -1,3 +1,6 @@
+166910 Sol Ikamar
+169388 Laura Chetalam
+
 Library Management System Documentation
 Overview
 The Library Management System is a Python-based application designed to manage the operations of a library, 
