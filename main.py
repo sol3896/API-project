@@ -19,54 +19,75 @@ def main():
         print("6. Exit")
         choice = input("Enter your choice: ")
 
-        if choice == "1":
-            title = input("Enter book title: ")
-            author = input("Enter book author: ")
-            isbn = input("Enter book ISBN: ")
-            try:
+        try:
+            if choice == "1":
+                # Add a new book
+                title = input("Enter book title: ").strip()
+                author = input("Enter book author: ").strip()
+                isbn = input("Enter book ISBN: ").strip()
+
+                if not title or not author or not isbn:
+                    raise ValueError("Book title, author, and ISBN must not be empty.")
+
                 available_copies = int(input("Enter available copies: "))
+                if available_copies < 0:
+                    raise ValueError("Available copies cannot be negative.")
+
                 book = Book(title, author, isbn, available_copies)
                 library.add_book(book)
-            except ValueError:
-                print("Invalid input for available copies. Please enter a number.")
 
-        elif choice == "2":
-            user_id = input("Enter user ID: ")
-            name = input("Enter user name: ")
-            user_type = input("Is the user a 'Member' or 'Staff'? ").strip().lower()
-            if user_type == "staff":
-                user = Staff(user_id, name)
+            elif choice == "2":
+                # Register a new user
+                user_id = input("Enter user ID: ").strip()
+                name = input("Enter user name: ").strip()
+                user_type = input("Is the user a 'Member' or 'Staff'? ").strip().lower()
+
+                if not user_id or not name:
+                    raise ValueError("User ID and name must not be empty.")
+
+                if user_type == "staff":
+                    user = Staff(user_id, name)
+                else:
+                    user = User(user_id, name)
+                library.add_user(user)
+
+            elif choice == "3":
+                # Borrow a book
+                user_id = input("Enter user ID for borrowing: ").strip()
+                title = input("Enter book title to borrow: ").strip()
+                user = library.find_user_by_id(user_id)
+
+                if user:
+                    library.borrow_book(user, title)
+                else:
+                    print("User not found!")
+
+            elif choice == "4":
+                # Return a book
+                user_id = input("Enter user ID for returning: ").strip()
+                title = input("Enter book title to return: ").strip()
+                user = library.find_user_by_id(user_id)
+
+                if user:
+                    library.return_book(user, title)
+                else:
+                    print("User not found!")
+
+            elif choice == "5":
+                # View all books
+                library.view_all_books()
+
+            elif choice == "6":
+                print("Exiting the system. Goodbye!")
+                break
+
             else:
-                user = User(user_id, name)
-            library.add_user(user)
-
-        elif choice == "3":
-            user_id = input("Enter user ID for borrowing: ")
-            title = input("Enter book title to borrow: ")
-            user = library.find_user_by_id(user_id)
-            if user:
-                library.borrow_book(user, title)
-            else:
-                print("User not found!")
-
-        elif choice == "4":
-            user_id = input("Enter user ID for returning: ")
-            title = input("Enter book title to return: ")
-            user = library.find_user_by_id(user_id)
-            if user:
-                library.return_book(user, title)
-            else:
-                print("User not found!")
-
-        elif choice == "5":
-            library.view_all_books()
-
-        elif choice == "6":
-            print("Exiting the system. Goodbye!")
-            break
-
-        else:
-            print("Invalid choice. Please try again.")
+                print("Invalid choice. Please enter a number from 1 to 6.")
+        
+        except ValueError as ve:
+            print(f"Error: {ve}")
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
 
 if __name__ == "__main__":
     main()
